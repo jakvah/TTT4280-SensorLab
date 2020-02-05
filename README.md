@@ -1,0 +1,1 @@
+Python kode til sensorlab2. Er basert påå koden utvilket i lab1. Alle beregninger blir gjort fra analyse.py
