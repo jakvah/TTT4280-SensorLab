@@ -4,12 +4,12 @@ import matplotlib.pyplot as plt
 import scipy as sci
 import importdata as ipd
 import buggesmatteland as bml
+import getangle as ga
 
 plt.subplots_adjust(left=0.125, bottom=0.1, right=0.9, top=0.9, wspace=0.4, hspace=0.4)
 
 
 #global for system:
-
 x_12 = 0.065
 x_13 = 0.065
 x_23 = 0.065
@@ -23,7 +23,7 @@ x = np.linspace(-np.pi, np.pi, 201)
 
 [nomTp, rawData] = ipd.raspi_import(path,channels)
 
-rawData_up = ipd.preProc(rawData,5)
+rawData_up = ipd.preProc(rawData,10)
 
 d1 = rawData_up[5:,0]
 d2 = rawData_up[5:,1]
@@ -177,6 +177,8 @@ print("The max value of corr_12 is "+ str(max(corr_12_short)))
 print("It is located at index " + str(corr_12_short_mod.index(max(corr_12_short_mod))))
 print("That corresponds to a delay of " + str(corr_12_short_mod.index(max(corr_12_short_mod)) - (len(corr_12_short_mod))/2)+ " samples.")
 
+print("*------------------------------------------*")
+
 # Plotter alle xCorr
 plt.subplot(3, 1, 1)
 plt.title("xCross 2_3")
@@ -214,23 +216,32 @@ n_23 = corr_23_short_mod.index(max(corr_23_short_mod)) - (len(corr_23_short_mod)
 n_13 = corr_13_short_mod.index(max(corr_13_short_mod)) - (len(corr_13_short_mod))/2
 n_12 = corr_12_short_mod.index(max(corr_12_short_mod)) - (len(corr_12_short_mod))/2
 
-x = bml.determineX(x_12,x_13,x_23, n_12, n_13,n_23, f_s,a)
-print("x er: " + str(x))
-
-
-if x >= 0:
-    vinkel = bml.calculateAngle(n_21 = n_12, n_31 = n_13, n_32 = n_23)
-if x < 0:
-    vinkel = bml.calculateAngle(n_21 = n_12, n_31 = n_13, n_32 = n_23) + np.pi
-
+x_t = bml.determineX(x_12,x_13,x_23, n_12, n_13,n_23, f_s,a)
+vinkel = bml.calculateAngle(n_21 = n_12, n_31 = n_13, n_32 = n_23)
+print("x er: " + str(x_t))
 print("raw vinkel: " + str(vinkel))
 print("raw deg: " + str(vinkel * 180 / np.pi))
+
+if x_t < 0:
+    vinkel = bml.calculateAngle(n_21 = n_12, n_31 = n_13, n_32 = n_23) + np.pi
+
+
 
 print("*------------------------------------------*")
 print("Vinkelen er: " + str(bml.makeAnglePositive(vinkel * 180 / np.pi)) +  " grader.")
 print("Vinkelen er: " +  str(vinkel) + " radianer.")
 
+# Henter vinkler fra andre tester:
+v_1 = ga.getAngle("radar0.bin")
+v_2 = ga.getAngle("radar36.bin")
+v_3 = ga.getAngle("radar72.bin")
+v_4 = ga.getAngle("radar108.bin")
+v_5 = ga.getAngle("radar144.bin")
+
+
 bml.circlePlot(bml.makeAnglePositive(vinkel * 180 / np.pi))
+
+
 
 
 

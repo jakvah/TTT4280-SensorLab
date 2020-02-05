@@ -24,7 +24,7 @@ def determineX(x_12,x_13,x_23, n_12, n_13,n_23, f_s,a):
 
     return x
 
-def calculateAngle(n_21,n_31,n_32):
+def calculateAngle(n_21,n_31,n_32):    
     arg = (np.sqrt(3)*(n_21 + n_32)) / (n_21 - n_31 - 2*n_32)
     
     angle = np.arctan(arg)
@@ -53,11 +53,28 @@ def circlePlot(angle):
     ax = plt.subplot(111, polar=True)
     bars = ax.bar(theta, radii, width=width, bottom=bottom)
     ax.set_yticklabels([])
+    ax.set_title("Plot av vinkelen: " + str(int(round(angle))) + " i grader:")
 
     # Spicy farger
-    for r, bar in zip(radii, bars):
+    for r, bar in zip(radii, bars): 
         bar.set_facecolor(plt.cm.jet(r / 10.))
         bar.set_alpha(0.8)
 
     plt.show()
 
+
+def removeDC(seq):
+    sum_seq = 0
+    for sample in seq:
+        sum_seq += sample   
+
+    mean_seq = sum_seq / len(seq)
+
+    seq_mod = []
+
+
+    for sample in seq:
+        new = sample - mean_seq
+        seq_mod.append(new)
+
+    return seq_mod
