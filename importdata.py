@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy as sci
 from scipy import signal
+
 def raspi_import(path, channels):
     """
     Import data produced using adc_sampler.c.
@@ -34,6 +35,7 @@ def preProc(data, upSampleFactor):
     mic = np.zeros((length,5))
     mic = signal.detrend(data[:,:5], axis=0, type="constant")
     
+
     if(upSampleFactor != 1):
         mic = signal.resample(mic, upSampleFactor*length, axis=0)
     

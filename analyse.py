@@ -12,24 +12,24 @@ plt.subplots_adjust(left=0.125, bottom=0.1, right=0.9, top=0.9, wspace=0.4, hspa
 #global for system:
 x_12 = 0.065
 x_13 = 0.065
-x_23 = 0.065
-a = 0.0563
+x_23 = 0.06
+a = 0.0562916512
 f_s = 31250 
 
 channels = 5
 
-path = 'radar144.bin'
+path = 'radar72.bin'
 x = np.linspace(-np.pi, np.pi, 201)
 
 [nomTp, rawData] = ipd.raspi_import(path,channels)
 
-rawData_up = ipd.preProc(rawData,10)
+rawData_up = ipd.preProc(rawData,5)
 
-d1 = rawData_up[5:,0]
-d2 = rawData_up[5:,1]
-d3 = rawData_up[5:,2]
-d4 = rawData_up[5:,3]
-d5 = rawData_up[5:,4]
+d1 = rawData_up[100:,0]
+d2 = rawData_up[100:,1]
+d3 = rawData_up[100:,2]
+d4 = rawData_up[100:,3]
+d5 = rawData_up[100:,4]
 
 plt.subplot(5, 1, 1)
 plt.title("Raw data from ADC 1")
@@ -200,14 +200,14 @@ plt.plot(range((-100),(-100)+len(corr_12_short)),corr_12_short)
 
 plt.show()
 
-"""
+
 #plt.subplot(2, 1, 1)
 plt.title("Corr auto")
 plt.xlabel("bla")
 plt.ylabel("bla")
 plt.plot(range((-31244),(-31244)+len(corr_auto)),corr_auto)
 plt.show()
-"""
+
 
 # Beregner vinkel
 
@@ -231,6 +231,8 @@ print("*------------------------------------------*")
 print("Vinkelen er: " + str(bml.makeAnglePositive(vinkel * 180 / np.pi)) +  " grader.")
 print("Vinkelen er: " +  str(vinkel) + " radianer.")
 
+
+"""
 # Henter vinkler fra andre tester:
 v_1 = ga.getAngle("radar0.bin")
 v_2 = ga.getAngle("radar36.bin")
@@ -238,6 +240,7 @@ v_3 = ga.getAngle("radar72.bin")
 v_4 = ga.getAngle("radar108.bin")
 v_5 = ga.getAngle("radar144.bin")
 
+"""
 
 bml.circlePlot(bml.makeAnglePositive(vinkel * 180 / np.pi))
 
