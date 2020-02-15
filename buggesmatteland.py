@@ -4,6 +4,9 @@ import matplotlib.pyplot as plt
 import scipy as sci
 
 
+
+
+
 def determineX(x_12,x_13,x_23, n_12, n_13,n_23, f_s,a):
     c = 3*10**8
 
@@ -19,9 +22,10 @@ def determineX(x_12,x_13,x_23, n_12, n_13,n_23, f_s,a):
     t_31 = t_13
     t_32 = t_23   
 
-    sum = (x_12*t_12 + x_13*t_13 + x_21*t_21 + x_23*t_23 + x_31*t_31 + x_32*t_32)
-    x = ((2*c) / (9*a**2))*sum
+    #sum = (x_12*t_12 + x_13*t_13 + x_21*t_21 + x_23*t_23 + x_31*t_31 + x_32*t_32)
+    #x = ((2*c) / (9*a**2))*sum
 
+    x = (-(np.sqrt(3)*a/3)*t_12)+((np.sqrt(3)*a/3)*t_13)+(np.sqrt(3)*a*t_23)
     return x
 
 def calculateAngle(n_21,n_31,n_32):    
