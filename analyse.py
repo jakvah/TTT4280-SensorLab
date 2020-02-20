@@ -18,7 +18,7 @@ f_s = 31250
 
 channels = 5
 
-path = 'radar72.bin'
+path = 'radarData/radar72.bin'
 x = np.linspace(-np.pi, np.pi, 201)
 
 [nomTp, rawData] = ipd.raspi_import(path,channels)
