@@ -79,5 +79,13 @@ goldenOldies = findpeak(nyauto[int(len(nyauto)/2):])
 print(goldenOldies)
 print("lengden er:",len(goldenOldies))
 
-for i in range len(goldenOldies):
-    
+for j in range(len(goldenOldies)):
+    if j == 0 or j == len(goldenOldies):
+        continue
+    else:
+        prev_index = goldenOldies[j-1]
+        curr_index = goldenOldies[j]
+        diff = curr_index - prev_index
+        print("Diff mellom peakpair nr",    j-1,":")
+        print(diff)
+
