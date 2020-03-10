@@ -3,6 +3,29 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy as sci
 
+def findpeak(pikk):
+    peaks = []
+    dikk = {}
+    for i in range(len(pikk)):
+            try:
+                prevVal = pikk[i-1]
+                currVal = pikk[i]
+                nextVal = pikk[i+1]
+                if currVal > prevVal and currVal > nextVal:
+                    peaks.append(i) 
+            except IndexError as e:
+                if i == 0:
+                    currVal = pikk[i]
+                    nextVal = pikk[i+1]
+                    if currVal > prevVal:
+                        peaks.append(i)
+                else:
+                    prevVal = pikk[i-1]
+                    currVal = pikk[i]
+                    if currVal > prevVal:
+                        peaks.append(i)
+                    
+    return peaks
 
 
 

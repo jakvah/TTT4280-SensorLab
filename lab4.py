@@ -1,84 +1,101 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.signal as sig
+import buggesmatteland as bml
 
-def findpeak(pikk):
-    peaks = []
-    dikk = {}
-    for i in range(len(pikk)):
-            try:
-                prevVal = pikk[i-1]
-                currVal = pikk[i]
-                nextVal = pikk[i+1]
-                if currVal > prevVal and currVal > nextVal:
-                    peaks.append(i) 
-            except IndexError as e:
-                if i == 0:
-                    currVal = pikk[i]
-                    nextVal = pikk[i+1]
-                    if currVal > prevVal:
-                        peaks.append(i)
-                else:
-                    prevVal = pikk[i-1]
-                    currVal = pikk[i]
-                    if currVal > prevVal:
-                        peaks.append(i)
-                    
-    return peaks
+pulseData = np.loadtxt("film5.txt")
+pulseData = sig.detrend(pulseData,axis = 0)
 
+# -------------------- Time signal ------------------- #
 
-godStuff = np.loadtxt("film5.txt")
-godStuff = sig.detrend(godStuff,axis = 0)
-red = godStuff[:,0]
+red = pulseData[:,0]
+green = pulseData[:,1]
+blue = pulseData[:,2]
 
+plt.subplot(3,1,1)
+plt.title("Red time signal")
+plt.xlabel("Sample")
+plt.ylabel("Value")
+plt.plot(red,"r")
 
-"""
-red = []
-for l in godStuff:
-    red.append(l[0])
-"""
-print("goodstuff")
-print(godStuff.shape)
+plt.subplot(3,1,2)
+plt.title("Green time signal")
+plt.xlabel("Sample")
+plt.ylabel("Value")
+plt.plot(green,"g")
 
-print("Data fra txt")
-print(godStuff)
+plt.subplot(3,1,3)
+plt.title("Blue time signal")
+plt.xlabel("Sample")
+plt.ylabel("Value")
+plt.plot(blue,"b")
+plt.show()
+
+# -------------------- FFT ------------------- #
 
 fft_red = np.fft.rfft(red,axis = 0)
-print("data fra fft")
-print(fft_red)
+fft_green = np.fft.rfft(green,axis = 0)
+fft_blue = np.fft.rfft(blue,axis = 0)
 
-plt.plot(red)
-plt.show()
-plt.plot(np.abs(fft_red))
-plt.show()
+plt.subplot(3,1,1)
+plt.title("Red FFT")
+plt.xlabel("Sample")
+plt.ylabel("Value")
+plt.plot(fft_red,"r")
 
-print()
+plt.subplot(3,1,2)
+plt.title("Green FFT")
+plt.xlabel("Sample")
+plt.ylabel("Value")
+plt.plot(fft_green,"g")
 
-print("autocorr my ballz")
-autocorr = np.correlate(fft_red,fft_red,"full")
-autocorr_tits = np.correlate(red,red,"full")
-
-print(len(autocorr))
-
-nyauto = []
-for j in autocorr:
-    nyauto.append(j)
-
-nyauto_2 = []
-for j in autocorr_tits:
-    nyauto_2.append(j)
-
-
-
-plt.plot(nyauto)
-plt.show(nyauto)
-
-plt.plot(nyauto_2)
+plt.subplot(3,1,3)
+plt.title("Blue FFT")
+plt.xlabel("Sample")
+plt.ylabel("Value")
+plt.plot(fft_blue,"b")
 plt.show()
 
+# -------------------- AutoCorr ------------------- #
+
+auto_red_temp = np.correlate(red,red,"full")
+auto_green_temp = np.correlate(green,green,"full")
+auto_blue_temp = np.correlate(blue,blue,"full")
+
+# Can't work with np arrays for some reason...
+autoRed = []
+for j in auto_red_temp:
+    autoRed.append(j)
+autoGreen = []
+for j in auto_green_temp:
+    autoGreen.append(j)
+autoBlue = []
+for j in auto_blue_temp:
+    autoBlue.append(j)
 
 
-goldenOldies = findpeak(nyauto[int(len(nyauto)/2):])
+plt.subplot(3,1,1)
+plt.title("Red auto correlation")
+plt.xlabel("Sample")
+plt.ylabel("Value")
+plt.plot(autoRed,"r")
+
+plt.subplot(3,1,2)
+plt.title("Green auto correlation")
+plt.xlabel("Sample")
+plt.ylabel("Value")
+plt.plot(autoGreen,"g")
+
+plt.subplot(3,1,3)
+plt.title("Blue auto correlation")
+plt.xlabel("Sample")
+plt.ylabel("Value")
+plt.plot(autoBlue,"b")
+plt.show()
+
+
+
+goldenOldies = bml.findpeak(nyauto[int(len(nyauto)/2):])
 print(goldenOldies)
 print("lengden er:",len(goldenOldies))
 
