@@ -93,7 +93,7 @@ plt.ylabel("Value")
 plt.plot(autoBlue,"b")
 plt.show()
 
-
+# -------------------- Processing ------------------- #
 
 goldenOldies = bml.findpeak(nyauto[int(len(nyauto)/2):])
 print(goldenOldies)

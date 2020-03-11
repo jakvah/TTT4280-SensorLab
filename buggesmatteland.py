@@ -3,32 +3,47 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy as sci
 
-def findpeak(pikk):
-    peaks = []
-    dikk = {}
-    for i in range(len(pikk)):
+def findpeak(data):    
+    maxValue = max(data)
+    maxIndex = data.index(maxValue)
+
+    peakLocations = [maxIndex]
+    minLocations = []
+    # Help variables to find local min and max.
+    currLocalMax = maxValue
+    currLocalMin = maxValue 
+    lookingForMin = True
+"""
+    for i in range(maxIndex+1,len(data)):
+        if lookingForMin:
+            currVal = data[i]
+            prevVal = data[-1]
+            if currVal < prevVal:
+                currLocalMin = currVal
+            if currVal > prevVal and prevVal == currLocalMin:
+                minLocations.append(i-1)
+        
+
             try:
-                prevVal = pikk[i-1]
-                currVal = pikk[i]
-                nextVal = pikk[i+1]
+                prevVal = data[i-1]
+                currVal = data[i]
+                nextVal = data[i+1]
                 if currVal > prevVal and currVal > nextVal:
-                    peaks.append(i) 
+                    peakLocations.append(i) 
             except IndexError as e:
                 if i == 0:
-                    currVal = pikk[i]
-                    nextVal = pikk[i+1]
+                    currVal = data[i]
+                    nextVal = data[i+1]
                     if currVal > prevVal:
-                        peaks.append(i)
+                        peakLocations.append(i)
                 else:
-                    prevVal = pikk[i-1]
-                    currVal = pikk[i]
+                    prevVal = data[i-1]
+                    currVal = data[i]
                     if currVal > prevVal:
-                        peaks.append(i)
+                        peakLocations.append(i)
                     
-    return peaks
-
-
-
+    return peakLocations
+    """
 
 def determineX(x_12,x_13,x_23, n_12, n_13,n_23, f_s,a):
     c = 3*10**8
