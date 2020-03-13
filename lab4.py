@@ -5,6 +5,7 @@ import buggesmatteland as bml
 
 # For moving average
 WINDOW_SIZE = 10
+FRAMERATE = 40
 
 pulseData = np.loadtxt("film5.txt")
 pulseData = sig.detrend(pulseData,axis = 0)
@@ -146,10 +147,16 @@ plt.show()
 
 # -------------------- Computing pulse ------------------- #
 
-avgPeak = bml.findAvgPeakDistance(redPeaks)
-
-print("Average red sample peak diff is: ", avgPeak)
-print("At 40fps that is a pulse of: ", avgPeak / 40)
+avgPeakRed = bml.findAvgPeakDistance(redPeaks)
+avgPeakBlue = bml.findAvgPeakDistance(bluePeaks)
+print()
+print("-------------------- PULSE CALCULATIONS -------------------- ")
+print()
+print("Average red sample peak diff is: ", avgPeakRed)
+print("At",FRAMERATE,"fps that is a pulse of: ", avgPeakRed / FRAMERATE, " Hz, or ", (avgPeakRed / FRAMERATE) * 60, " beats pr minute!" )
+print("-------------------------------------------------------------")
+print("Average blue sample peak diff is: ", avgPeakBlue)
+print("At",FRAMERATE,"fps that is a pulse of: ", avgPeakBlue / FRAMERATE, " Hz, or ", (avgPeakBlue / FRAMERATE) * 60, " beats pr minute!" )
 
 
 
