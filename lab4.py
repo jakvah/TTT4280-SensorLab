@@ -12,30 +12,47 @@ red = pulseData[:,0]
 green = pulseData[:,1]
 blue = pulseData[:,2]
 
-plt.subplot(3,1,1)
+plt.subplot(321)
 plt.title("Red time signal")
-plt.xlabel("Sample")
-plt.ylabel("Value")
 plt.plot(red,"r")
 
-plt.subplot(3,1,2)
+
+plt.subplot(325)
 plt.title("Green time signal")
-plt.xlabel("Sample")
-plt.ylabel("Value")
 plt.plot(green,"g")
 
-plt.subplot(3,1,3)
+plt.subplot(323)
 plt.title("Blue time signal")
-plt.xlabel("Sample")
-plt.ylabel("Value")
 plt.plot(blue,"b")
+
+# -------------------- Moving average ------------------- #
+
+redMvAvg = bml.movingAverage(red,10)
+blueMvAvg = bml.movingAverage(blue,10)
+greenMvAvg = bml.movingAverage(green,10)
+
+plt.subplot(322)
+plt.title("Red time signal moving average")
+plt.plot(redMvAvg,"r")
+
+
+plt.subplot(326)
+plt.title("Green time signal mv avg")
+plt.plot(greenMvAvg,"g")
+
+plt.subplot(324)
+plt.title("Blue time signal mv avg")
+plt.plot(blueMvAvg,"b")
+
 plt.show()
+
+
 
 # -------------------- FFT ------------------- #
 
-fft_red = np.fft.rfft(red,axis = 0)
-fft_green = np.fft.rfft(green,axis = 0)
-fft_blue = np.fft.rfft(blue,axis = 0)
+fft_red = np.fft.rfft(redMvAvg,axis = 0)
+fft_green = np.fft.rfft(greenMvAvg,axis = 0)
+fft_blue = np.fft.rfft(blueMvAvg,axis = 0)
 
 plt.subplot(3,1,1)
 plt.title("Red FFT")
@@ -58,9 +75,9 @@ plt.show()
 
 # -------------------- AutoCorr ------------------- #
 
-auto_red_temp = np.correlate(red,red,"full")
-auto_green_temp = np.correlate(green,green,"full")
-auto_blue_temp = np.correlate(blue,blue,"full")
+auto_red_temp = np.correlate(redMvAvg,redMvAvg,"full")
+auto_green_temp = np.correlate(greenMvAvg,greenMvAvg,"full")
+auto_blue_temp = np.correlate(blueMvAvg,blueMvAvg,"full")
 
 # Can't work with np arrays for some reason...
 autoRed = []
@@ -76,20 +93,14 @@ for j in auto_blue_temp:
 
 plt.subplot(3,1,1)
 plt.title("Red auto correlation")
-plt.xlabel("Sample")
-plt.ylabel("Value")
 plt.plot(autoRed,"r")
 
 plt.subplot(3,1,2)
 plt.title("Green auto correlation")
-plt.xlabel("Sample")
-plt.ylabel("Value")
 plt.plot(autoGreen,"g")
 
 plt.subplot(3,1,3)
 plt.title("Blue auto correlation")
-plt.xlabel("Sample")
-plt.ylabel("Value")
 plt.plot(autoBlue,"b")
 plt.show()
 
@@ -116,24 +127,21 @@ for i in range(len(peaks_green_temp)-1):
 plt.subplot(3,1,1)
 xsR = np.linspace(0, len(autoRed), len(autoRed))
 plt.title("Red Autocorrelation with peaks")
-plt.xlabel("Sample")
-plt.ylabel("Value") 
 plt.plot(xsR,autoRed,"-rD",markevery=redPeaks)
 
 
 plt.subplot(3,1,2)
 xsB = np.linspace(0, len(autoBlue), len(autoBlue))
 plt.title("Blue Autocorrelation with peaks") 
-plt.xlabel("Sample")
-plt.ylabel("Value")
 plt.plot(xsB,autoBlue,"-bD",markevery=bluePeaks)
 
 
 plt.subplot(3,1,3)
 xsG = np.linspace(0, len(autoGreen), len(autoGreen))
 plt.title("Green Autocorrelation with peaks")
-plt.xlabel("Sample")
-plt.ylabel("Value") 
 plt.plot(xsG,autoGreen,"-gD",markevery=greenPeaks)
 
 plt.show()
+
+# -------------------- Moving average filter ------------------- #
+

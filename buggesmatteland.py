@@ -3,6 +3,18 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy as sci
 
+
+def movingAverage(dataSet,Window):
+    cumsum, moving_aves = [0], []
+
+    for i, x in enumerate(dataSet, 1):
+        cumsum.append(cumsum[i-1] + x)
+        if i>=Window:
+            moving_ave = (cumsum[i] - cumsum[i-Window])/Window
+            #can do stuff with moving_ave here
+            moving_aves.append(moving_ave)
+    return moving_aves
+
 def findpeak(data):    
     maxValue = max(data)
     maxIndex = data.index(maxValue)
