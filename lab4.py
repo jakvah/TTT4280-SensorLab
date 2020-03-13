@@ -3,6 +3,9 @@ import matplotlib.pyplot as plt
 import scipy.signal as sig
 import buggesmatteland as bml
 
+# For moving average
+WINDOW_SIZE = 10
+
 pulseData = np.loadtxt("film5.txt")
 pulseData = sig.detrend(pulseData,axis = 0)
 
@@ -27,9 +30,9 @@ plt.plot(blue,"b")
 
 # -------------------- Moving average ------------------- #
 
-redMvAvg = bml.movingAverage(red,10)
-blueMvAvg = bml.movingAverage(blue,10)
-greenMvAvg = bml.movingAverage(green,10)
+redMvAvg = bml.movingAverage(red,WINDOW_SIZE)
+blueMvAvg = bml.movingAverage(blue,WINDOW_SIZE)
+greenMvAvg = bml.movingAverage(green,WINDOW_SIZE)
 
 plt.subplot(322)
 plt.title("Red time signal moving average")
