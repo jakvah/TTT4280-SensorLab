@@ -5,10 +5,10 @@ import matplotlib.pyplot as plt
 import scipy.signal as sig
 import buggesmatteland as bml
 
-WINDOW_SIZE = 10
-FRAMERATE = 40
+WINDOW_SIZE = 50
+FRAMERATE = 30
 
-pulseData = np.loadtxt("film5.txt")
+pulseData = np.loadtxt("simendata.txt")
 pulseData = sig.detrend(pulseData,axis = 0)
 
 # -------------------- Time signal ------------------- #
@@ -129,13 +129,13 @@ plt.show()
 avgPeakRed = bml.findAvgPeakDistance(redPeaks)
 avgPeakBlue = bml.findAvgPeakDistance(bluePeaks)
 print()
-print("-------------------- PULSE CALCULATIONS -------------------- ")
+print("-------------------- PULSE CALCULATIONS --------------------")
 print()
 print("Average red sample peak diff is: ", avgPeakRed)
-print("At",FRAMERATE,"fps that is a pulse of: ", avgPeakRed / FRAMERATE, " Hz, or ", (avgPeakRed / FRAMERATE) * 60, " beats pr minute!" )
+print("At",FRAMERATE,"fps that is a pulse of: ", FRAMERATE / avgPeakRed, " Hz, or ", (FRAMERATE / avgPeakRed) * 60, " beats pr minute!" )
 print("-------------------------------------------------------------")
 print("Average blue sample peak diff is: ", avgPeakBlue)
-print("At",FRAMERATE,"fps that is a pulse of: ", avgPeakBlue / FRAMERATE, " Hz, or ", (avgPeakBlue / FRAMERATE) * 60, " beats pr minute!" )
+print("At",FRAMERATE,"fps that is a pulse of: ", FRAMERATE / avgPeakRed, " Hz, or ", (FRAMERATE / avgPeakRed) * 60, " beats pr minute!" )
 
 
 
