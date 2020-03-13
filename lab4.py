@@ -93,19 +93,47 @@ plt.ylabel("Value")
 plt.plot(autoBlue,"b")
 plt.show()
 
-# -------------------- Processing ------------------- #
+# -------------------- Finding peaks ------------------- #
 
-goldenOldies = bml.findpeak(nyauto[int(len(nyauto)/2):])
-print(goldenOldies)
-print("lengden er:",len(goldenOldies))
+redPeaks = []
+peaks_red_temp = sig.find_peaks(autoRed)
+for i in range(len(peaks_red_temp)-1):
+    for j in peaks_red_temp[i]:
+        redPeaks.append(j)
 
-for j in range(len(goldenOldies)):
-    if j == 0 or j == len(goldenOldies):
-        continue
-    else:
-        prev_index = goldenOldies[j-1]
-        curr_index = goldenOldies[j]
-        diff = curr_index - prev_index
-        print("Diff mellom peakpair nr",    j-1,":")
-        print(diff)
+bluePeaks = []
+peaks_blue_temp = sig.find_peaks(autoBlue)
+for i in range(len(peaks_blue_temp)-1):
+    for j in peaks_blue_temp[i]:
+        bluePeaks.append(j)
 
+greenPeaks = []
+peaks_green_temp = sig.find_peaks(autoGreen)
+for i in range(len(peaks_green_temp)-1):
+    for j in peaks_green_temp[i]:
+        greenPeaks.append(j)
+
+plt.subplot(3,1,1)
+xsR = np.linspace(0, len(autoRed), len(autoRed))
+plt.title("Red Autocorrelation with peaks")
+plt.xlabel("Sample")
+plt.ylabel("Value") 
+plt.plot(xsR,autoRed,"-rD",markevery=redPeaks)
+
+
+plt.subplot(3,1,2)
+xsB = np.linspace(0, len(autoBlue), len(autoBlue))
+plt.title("Blue Autocorrelation with peaks") 
+plt.xlabel("Sample")
+plt.ylabel("Value")
+plt.plot(xsB,autoBlue,"-bD",markevery=bluePeaks)
+
+
+plt.subplot(3,1,3)
+xsG = np.linspace(0, len(autoGreen), len(autoGreen))
+plt.title("Green Autocorrelation with peaks")
+plt.xlabel("Sample")
+plt.ylabel("Value") 
+plt.plot(xsG,autoGreen,"-gD",markevery=greenPeaks)
+
+plt.show()
