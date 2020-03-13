@@ -21,7 +21,6 @@ plt.subplot(321)
 plt.title("Red time signal")
 plt.plot(red,"r")
 
-
 plt.subplot(325)
 plt.title("Green time signal")
 plt.plot(green,"g")
@@ -39,7 +38,6 @@ greenMvAvg = bml.movingAverage(green,WINDOW_SIZE)
 plt.subplot(322)
 plt.title("Red time signal moving average")
 plt.plot(redMvAvg,"r")
-
 
 plt.subplot(326)
 plt.title("Green time signal mv avg")
@@ -59,20 +57,14 @@ fft_blue = np.fft.rfft(blueMvAvg,axis = 0)
 
 plt.subplot(3,1,1)
 plt.title("Red FFT")
-plt.xlabel("Sample")
-plt.ylabel("Value")
 plt.plot(fft_red,"r")
 
 plt.subplot(3,1,2)
 plt.title("Green FFT")
-plt.xlabel("Sample")
-plt.ylabel("Value")
 plt.plot(fft_green,"g")
 
 plt.subplot(3,1,3)
 plt.title("Blue FFT")
-plt.xlabel("Sample")
-plt.ylabel("Value")
 plt.plot(fft_blue,"b")
 plt.show()
 
@@ -109,23 +101,9 @@ plt.show()
 
 # -------------------- Finding peaks ------------------- #
 
-redPeaks = []
-peaks_red_temp = sig.find_peaks(autoRed)
-for i in range(len(peaks_red_temp)-1):
-    for j in peaks_red_temp[i]:
-        redPeaks.append(j)
-
-bluePeaks = []
-peaks_blue_temp = sig.find_peaks(autoBlue)
-for i in range(len(peaks_blue_temp)-1):
-    for j in peaks_blue_temp[i]:
-        bluePeaks.append(j)
-
-greenPeaks = []
-peaks_green_temp = sig.find_peaks(autoGreen)
-for i in range(len(peaks_green_temp)-1):
-    for j in peaks_green_temp[i]:
-        greenPeaks.append(j)
+redPeaks = bml.findPeaks(autoRed)
+bluePeaks = bml.findPeaks(autoBlue)
+greenPeaks = bml.findPeaks(autoGreen)
 
 plt.subplot(3,1,1)
 xsR = np.linspace(0, len(autoRed), len(autoRed))

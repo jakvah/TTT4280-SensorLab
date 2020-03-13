@@ -2,7 +2,15 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy as sci
+import scipy.signal as sig
 
+def findPeaks(data):
+    redPeaks = []
+    peaks_red_temp = sig.find_peaks(data)
+    for i in range(len(peaks_red_temp)-1):
+        for j in peaks_red_temp[i]:
+            redPeaks.append(j)
+    return redPeaks
 
 # Returnes average index distance from each peak.
 def findAvgPeakDistance(peakIndexes):
