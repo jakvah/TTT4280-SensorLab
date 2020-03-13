@@ -1,9 +1,10 @@
+# Jakob Vahlin, SPRING 2020
+
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.signal as sig
 import buggesmatteland as bml
 
-# For moving average
 WINDOW_SIZE = 10
 FRAMERATE = 40
 
