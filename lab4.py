@@ -28,7 +28,7 @@ plt.subplot(323)
 plt.title("Blue time signal")
 plt.plot(blue,"b")
 
-# -------------------- Moving average ------------------- #
+# -------------------- Moving average filter ------------------- #
 
 redMvAvg = bml.movingAverage(red,WINDOW_SIZE)
 blueMvAvg = bml.movingAverage(blue,WINDOW_SIZE)
@@ -48,8 +48,6 @@ plt.title("Blue time signal mv avg")
 plt.plot(blueMvAvg,"b")
 
 plt.show()
-
-
 
 # -------------------- FFT ------------------- #
 
@@ -146,5 +144,12 @@ plt.plot(xsG,autoGreen,"-gD",markevery=greenPeaks)
 
 plt.show()
 
-# -------------------- Moving average filter ------------------- #
+# -------------------- Computing pulse ------------------- #
+
+avgPeak = bml.findAvgPeakDistance(redPeaks)
+
+print("Average red sample peak diff is: ", avgPeak)
+print("At 40fps that is a pulse of: ", avgPeak / 40)
+
+
 

@@ -4,6 +4,20 @@ import matplotlib.pyplot as plt
 import scipy as sci
 
 
+# Returnes average index distance from each peak.
+def findAvgPeakDistance(peakIndexes):
+    sum = 0
+    for i in range(len(peakIndexes)-1):
+        currIndex = peakIndexes[i]
+        nextIndex = peakIndexes[i+1]
+        diff = nextIndex - currIndex
+        sum += diff
+
+    avg = sum / (len(peakIndexes) -1)
+    return avg
+
+
+
 def movingAverage(dataSet,Window):
     cumsum, moving_aves = [0], []
 
