@@ -8,7 +8,7 @@ import buggesmatteland as bml
 WINDOW_SIZE = 50
 FRAMERATE = 30
 
-pulseData = np.loadtxt("simendata.txt")
+pulseData = np.loadtxt("PulseData/puls_1.txt")
 pulseData = sig.detrend(pulseData,axis = 0)
 
 # -------------------- Time signal ------------------- #
