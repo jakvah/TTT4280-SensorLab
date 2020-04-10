@@ -125,7 +125,7 @@ corr_12 = np.correlate(seq1_mod,seq2_mod,'full')
 corr_13 = np.correlate(seq1_mod,seq3_mod,'full')
 corr_23 = np.correlate(seq2_mod,seq3_mod,'full')
 
-# Bruker auto corr til å finne rett time shift
+# Bruker auto corr til aa finne rett time shift
 corr_auto = np.correlate(seq3_mod,seq3_mod,"full")
 
 corr_auto_mod = []
@@ -142,7 +142,7 @@ corr_23_short = corr_23[31144:31344]
 corr_12_short = corr_12[31144:31344]
 corr_13_short = corr_13[31144:31344]
 
-# Python klarer ikke indexer på numpy lister tydeligvis. Lager nye identiske "vanlige" lister.
+# Python klarer ikke indexer paa numpy lister tydeligvis. Lager nye identiske "vanlige" lister.
 corr_23_short_mod = []
 for sample in corr_23_short:
     corr_23_short_mod.append(sample)
