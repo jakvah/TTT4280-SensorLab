@@ -139,15 +139,15 @@ def circlePlot(angle):
     plt.show()
 
 
-def circlePlot5Angles(angle1,angle2,angle3,angle4,angle5):
-    angle_list = [int(angle1),int(angle2),int(angle3),int(angle4),int(angle5)]
+def circlePlot5Angles(angle1,angle2,angle3,angle4,angle5,target,targetpos):
+    angle_list = [int(angle1),int(angle2),int(angle3),int(angle4),int(angle5),target]
     N = 360
     bottom = 0
     max_height = 4
 
     theta = np.linspace(0.0, 2 * np.pi, N, endpoint=False)
     radii = max_height*np.random.rand(N)
-    width = ((2*np.pi) / N) + 0.01
+    width = ((0.5*np.pi) / N) + 0.01
 
     for i in range(N):
         radii[i] = 0
@@ -160,11 +160,20 @@ def circlePlot5Angles(angle1,angle2,angle3,angle4,angle5):
     ax.set_title("Plot av vinkelen: " + str(int(round(angle1))) + " i grader:")
 
     # Spicy farger
+    counter = 0
     for r, bar in zip(radii, bars): 
-        bar.set_facecolor(plt.cm.jet(r / 10.))
-        bar.set_alpha(0.8)
+        print(counter)
+        if r == 4.0:
+            counter += 1
+        if counter == targetpos and r == 4.0:
+            bar.set_facecolor(plt.cm.jet(r / 5.))
+            bar.set_alpha(0.8)
+        elif counter in [0,1,2,3,4,5,6]:
+            bar.set_facecolor(plt.cm.jet(r / 10.))
+            bar.set_alpha(0.8)
+            
 
-    plt.show()
+    plt.savefig("multiple_angelplot.png")
 
 
 
@@ -183,3 +192,5 @@ def removeDC(seq):
         seq_mod.append(new)
 
     return seq_mod
+
+
