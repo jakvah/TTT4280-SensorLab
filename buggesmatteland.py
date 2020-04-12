@@ -157,7 +157,7 @@ def circlePlot5Angles(angle1,angle2,angle3,angle4,angle5):
     ax = plt.subplot(111, polar=True)
     bars = ax.bar(theta, radii, width=width, bottom=bottom)
     ax.set_yticklabels([])
-    ax.set_title("Plot av vinkelen: " + str(int(round(angle))) + " i grader:")
+    ax.set_title("Plot av vinkelen: " + str(int(round(angle1))) + " i grader:")
 
     # Spicy farger
     for r, bar in zip(radii, bars): 
