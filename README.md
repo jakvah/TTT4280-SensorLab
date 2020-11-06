@@ -1,6 +1,6 @@
 ## TTT4280 -  Sensorer og instrumentering, lab
 
-Kode til alle 4 labber i faget TTT4280, sensorer og instrumentering.
+Kode til alle 4 labber i faget TTT4280, sensorer og instrumentering. Rapport til 2 av labbene er tilgjengelig [her](http://jakobvahlin.com/static/pdfs/sensor.pdf)
 
 ```adc_sampler.c``` kjøres på RaspberryPi for å sample data fra ADCene i sensorsystemet. 
 
